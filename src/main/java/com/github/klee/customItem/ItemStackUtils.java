@@ -1,4 +1,4 @@
-package com.github.klee.customitem;
+package com.github.klee.customItem;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -30,22 +30,23 @@ public class ItemStackUtils {
         return tag.get(nameKey, PersistentDataType.STRING);
     }
 
-    public static ItemStack setCustomTag(ItemStack item, @NotNull String key, @NotNull String value) {
+    public static void setCustomTag(ItemStack item, @NotNull String key, @NotNull String value) {
         if (item == null || Material.AIR.equals(item.getType()))
-            return null;
+            return;
         ItemMeta meta = item.getItemMeta();
         NamespacedKey nameKey = new NamespacedKey(plugin, key);
         PersistentDataContainer tag = meta.getPersistentDataContainer();
         tag.set(nameKey, PersistentDataType.STRING, value);
         item.setItemMeta(meta);
-        return item;
     }
 
     public static ItemStack createNewItem(Material material, String name_id, String name, boolean aura) {
         ItemStack item = new ItemStack(material);
         setCustomTag(item, "unique_id", name_id);
         Component component = LegacyComponentSerializer.legacyAmpersand().deserialize(name);
-        item.getItemMeta().displayName(component);
+        ItemMeta meta= item.getItemMeta();
+        meta.displayName(component);
+        item.setItemMeta(meta);
         if (aura) {
             item.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
             item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
