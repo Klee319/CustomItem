@@ -1,0 +1,4 @@
+name: CustomItem
+version: '${project.version}'
+main: com.github.klee.customitem.CustomItem
+api-version: '1.21'
