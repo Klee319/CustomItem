@@ -1,6 +1,7 @@
 package com.github.klee.customItem;
 
 
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static com.github.klee.customItem.registerItem.registerRecipesAll;
@@ -24,7 +25,6 @@ public final class CustomItem extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getServer().resetRecipes();
         getLogger().info("disabled");
     }
 
