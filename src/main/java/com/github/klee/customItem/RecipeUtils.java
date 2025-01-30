@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
 import org.jetbrains.annotations.NotNull;
 
+import javax.naming.Name;
 import java.util.*;
 
 import static com.github.klee.customItem.ItemStackUtils.getCustomTag;
@@ -12,16 +13,13 @@ import static com.github.klee.customItem.ItemStackUtils.getCustomTag;
 public class RecipeUtils extends RecipeChoice.ExactChoice  {
     private static final CustomItem plugin = CustomItem.getPlugin();
 
-    public RecipeUtils(ItemStack... items) {
-        super(items);
-    }
     //ブロックレシピを作成
     public static ShapedRecipe createBlockRecipe(ItemStack base, ItemStack result) {
         String id = getCustomTag(result, "unique_id");
         NamespacedKey key = new NamespacedKey(plugin, Objects.requireNonNull(id) + "_zip");
         ShapedRecipe recipe = new ShapedRecipe(key, result);
         recipe.shape("AAA", "AAA", "AAA");
-        recipe.setIngredient('A', new RecipeUtils(base));
+        recipe.setIngredient('A', new RecipeChoice.ExactChoice(base));
         return recipe;
     }
 
@@ -31,7 +29,7 @@ public class RecipeUtils extends RecipeChoice.ExactChoice  {
         NamespacedKey key = new NamespacedKey(plugin, Objects.requireNonNull(id) + "_unzip");
         result.setAmount(9);
         ShapelessRecipe recipe = new ShapelessRecipe(key, result);
-        recipe.addIngredient( new RecipeUtils(base));
+        recipe.addIngredient( new RecipeUtils.ExactChoice(base));
         return recipe;
     }
 
@@ -43,7 +41,7 @@ public class RecipeUtils extends RecipeChoice.ExactChoice  {
         ShapedRecipe recipe = new ShapedRecipe(key, result);
         recipe.shape(shapes.get(0), shapes.get(1), shapes.get(2));
         for (Character character : ingredient.keySet()) {
-            recipe.setIngredient(character, new RecipeUtils(ingredient.get(character)));
+            recipe.setIngredient(character, new RecipeUtils.ExactChoice(ingredient.get(character)));
         }
         return recipe;
     }
@@ -56,25 +54,10 @@ public class RecipeUtils extends RecipeChoice.ExactChoice  {
         ShapelessRecipe recipe = new ShapelessRecipe(key, result);
         for (ItemStack item : ingredient.keySet()) {
             for(int i=0;i<ingredient.get(item);i++) {
-                recipe.addIngredient(new RecipeUtils(item));
+                recipe.addIngredient(new RecipeUtils.ExactChoice(item));
             }
         }
         return recipe;
-    }
-
-    @Override
-    public boolean test(@NotNull ItemStack item) {
-        System.out.println("test");
-        Iterator<ItemStack> items = this.getChoices().iterator();
-        ItemStack match;
-        do {
-            if (!items.hasNext()) {
-                return false;
-            }
-            match = items.next();
-        } while (getCustomTag(item, "unique_id") == null || !Objects.equals(getCustomTag(item, "unique_id"), getCustomTag(match, "unique_id")));
-
-        return true;
     }
 
 }

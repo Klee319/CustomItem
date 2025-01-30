@@ -5,7 +5,9 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static com.github.klee.customItem.registerItem.registerRecipesAll;
+import static com.github.klee.customItem.registerItem.unregisterRecipesAll;
 
+//バージョンの違うクライアント（s:1.21<=>c:1.20.4 forge）でログインした後,クリエインベントリを開くと手持ちアイテムのNBTが壊れるので注意
 
 public final class CustomItem extends JavaPlugin {
     private static CustomItem instance;
@@ -25,6 +27,7 @@ public final class CustomItem extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        unregisterRecipesAll();
         getLogger().info("disabled");
     }
 
