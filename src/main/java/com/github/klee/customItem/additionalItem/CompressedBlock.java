@@ -22,15 +22,15 @@ public class CompressedBlock {
     public ItemStack compressedEmeraldBlock= createNewItem(Material.EMERALD_BLOCK, "compressed_emerald_block", "&b圧縮エメラルドブロック", 5);
     public ItemStack compressedEmeraldBlockX9= createNewItem(Material.EMERALD_BLOCK, "compressed_emerald_block_x9", "&e9倍圧縮エメラルドブロック", 6);
     public ItemStack compressedDiamondBlock= createNewItem(Material.DIAMOND_BLOCK, "compressed_diamond_block", "&b圧縮ダイヤモンドブロック", 7);
-    public ItemStack compressedDiamondBlockX9= createNewItem(Material.DIAMOND_BLOCK, "compressed_diamond_block_x9", "&e9倍圧縮ダイヤモンドブロック", 7);
-    public ItemStack compressedIronBlock= createNewItem(Material.IRON_BLOCK, "compressed_iron_block", "&b圧縮鉄ブロック", 8);
-    public ItemStack compressedIronBlockX9= createNewItem(Material.IRON_BLOCK, "compressed_iron_block_x9", "&e 9倍圧縮鉄ブロック", 9);
-    public ItemStack compressedGoldBlock= createNewItem(Material.GOLD_BLOCK, "compressed_gold_block", "&b圧縮金ブロック", 10);
-    public ItemStack compressedGoldBlockX9= createNewItem(Material.GOLD_BLOCK, "compressed_gold_block_x9", "&e9倍圧縮金ブロック", 11);
-    public ItemStack compressedCoalBlock= createNewItem(Material.COAL_BLOCK, "compressed_coal_block", "&b圧縮石炭ブロック", 12);
-    public ItemStack compressedCoalBlockX9= createNewItem(Material.COAL_BLOCK, "compressed_coal_block_x9", "&e9倍圧縮石炭ブロック", 13);
-    public ItemStack compressedCopperBlock = createNewItem(Material.COPPER_BLOCK, "compressed_copper_block", "&b圧縮銅ブロック", 14);
-    public ItemStack compressedCopperBlockX9 = createNewItem(Material.COPPER_BLOCK, "compressed_copper_block_x9", "&e9倍圧縮銅ブロック", 15);
+    public ItemStack compressedDiamondBlockX9= createNewItem(Material.DIAMOND_BLOCK, "compressed_diamond_block_x9", "&e9倍圧縮ダイヤモンドブロック", 8);
+    public ItemStack compressedIronBlock= createNewItem(Material.IRON_BLOCK, "compressed_iron_block", "&b圧縮鉄ブロック", 9);
+    public ItemStack compressedIronBlockX9= createNewItem(Material.IRON_BLOCK, "compressed_iron_block_x9", "&e 9倍圧縮鉄ブロック", 10);
+    public ItemStack compressedGoldBlock= createNewItem(Material.GOLD_BLOCK, "compressed_gold_block", "&b圧縮金ブロック", 11);
+    public ItemStack compressedGoldBlockX9= createNewItem(Material.GOLD_BLOCK, "compressed_gold_block_x9", "&e9倍圧縮金ブロック", 12);
+    public ItemStack compressedCoalBlock= createNewItem(Material.COAL_BLOCK, "compressed_coal_block", "&b圧縮石炭ブロック", 13);
+    public ItemStack compressedCoalBlockX9= createNewItem(Material.COAL_BLOCK, "compressed_coal_block_x9", "&e9倍圧縮石炭ブロック", 14);
+    public ItemStack compressedCopperBlock = createNewItem(Material.COPPER_BLOCK, "compressed_copper_block", "&b圧縮銅ブロック", 15);
+    public ItemStack compressedCopperBlockX9 = createNewItem(Material.COPPER_BLOCK, "compressed_copper_block_x9", "&e9倍圧縮銅ブロック", 16);
     public List<List<ItemStack>> Blocks = Arrays.asList(
             Arrays.asList(ItemStack.of(Material.REDSTONE_BLOCK),compressedRedStoneBlock,compressedRedStoneBlockX9),
            Arrays.asList(ItemStack.of(Material.LAPIS_BLOCK),compressedLapisLazuliBlock,compressedLapisLazuliBlockX9),
@@ -45,11 +45,8 @@ public class CompressedBlock {
     public CompressedBlock() {
         this.recipes = new ArrayList<>();
         for (List<ItemStack> block : Blocks) {
-            for(ItemStack item : block){
-                setCustomTag(item, "placed", "false");
-                addAura(item);
-            }
             for(int i=1;i<block.size();i++) {
+                    setCustomTag(block.get(i), "placed", "false");
                 recipes.add(createBlockRecipe(block.get(i-1), block.get(i)));
                 recipes.add(unZipBlockRecipe(block.get(i), block.get(i-1)));
             }

@@ -19,7 +19,6 @@ public final class CustomItem extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        getServer().getPluginManager().registerEvents(new ItemListener(), this);
         registerRecipesAll();
         getLogger().info("enabled");
 
