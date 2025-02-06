@@ -22,9 +22,6 @@ public class registerItem {
             }
         }
     }
-    public static void registerRecipesAll(){
-        registerRecipes(new CompressedBlock().recipes);
-    }
 
     public static void unregisterRecipesAll(){
         for(NamespacedKey key : registeredRecipes){
@@ -32,4 +29,9 @@ public class registerItem {
         }
         registeredRecipes.clear();
     }
+
+    public static void registerRecipesAll(){
+        registerRecipes(new CompressedBlock().recipes);
+    }
+
 }

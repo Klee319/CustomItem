@@ -40,17 +40,14 @@ public class ItemStackUtils {
         item.setItemMeta(meta);
     }
 
-    public static ItemStack createNewItem(Material material, String name_id, String name, boolean aura) {
+    public static ItemStack createNewItem(Material material, String name_id, String name, int modelNumber) {
         ItemStack item = new ItemStack(material);
         setCustomTag(item, "unique_id", name_id);
         Component component = LegacyComponentSerializer.legacyAmpersand().deserialize(name);
         ItemMeta meta= item.getItemMeta();
         meta.displayName(component);
+        meta.setCustomModelData(modelNumber);
         item.setItemMeta(meta);
-        if (aura) {
-            item.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
-            item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        }
         return item;
     }
 
@@ -85,6 +82,12 @@ public class ItemStackUtils {
 
         meta.lore(ComponentList);
         item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack addAura(ItemStack item) {
+        item.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
+        item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         return item;
     }
 
