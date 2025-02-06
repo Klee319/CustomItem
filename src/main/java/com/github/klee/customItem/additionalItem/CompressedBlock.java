@@ -45,8 +45,11 @@ public class CompressedBlock {
     public CompressedBlock() {
         this.recipes = new ArrayList<>();
         for (List<ItemStack> block : Blocks) {
+            for(ItemStack itemStack : block){
+                setCustomTag(itemStack, "placed", "false");
+                addAura(itemStack);
+            }
             for(int i=1;i<block.size();i++) {
-                    setCustomTag(block.get(i), "placed", "false");
                 recipes.add(createBlockRecipe(block.get(i-1), block.get(i)));
                 recipes.add(unZipBlockRecipe(block.get(i), block.get(i-1)));
             }

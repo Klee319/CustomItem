@@ -85,10 +85,9 @@ public class ItemStackUtils {
         return item;
     }
 
-    public static ItemStack addAura(ItemStack item) {
+    public static void addAura(ItemStack item) {
         item.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
         item.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        return item;
     }
 
 }
